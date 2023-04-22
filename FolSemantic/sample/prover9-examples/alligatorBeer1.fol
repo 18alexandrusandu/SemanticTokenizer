@@ -1,0 +1,137 @@
+%
+% Finding models in FOL:
+%  Where is the al  Sligator? 
+%  Who drinks beer?
+%
+% There are five houses in a row: a,b,c,d and e. 
+% Each has a dfferent color (amber, beige, cyan, denim, emerald) and an owner of different nationality.
+% The owners have differrent cars, pets and preffer different drinks.
+%
+% We know that:
+% The Austrian lives in the amber house.
+% Cider is drunk in the middle house.
+% The Belgian owns the bulldog.
+% The Czech lives in the first house on the left.
+% The man who owns a Dacia lives next to the man with the eagle.
+% The Czech lives next to the denim house.
+% The Bugatti owner has a cat.
+      % The person in the beige house drives a Cadillac.
+ % Advocaat is drunk in the cyan house.
+  % The Dane drinks eiswein.
+% The Estonian drives an Edonis.
+% The Cadillac is always parked in front of the house next to the one with a donkey.
+% The cyan house is immediately to the right of the emerald house.
+% The Aston Martin owner drinks daiquiri.
+%
+
+ %
+ % domain size 5: {a,b,c,d,e}.
+ % See also the "function" part in the model produced by mace4
+ %
+ set(arithmetic).
+ set( domain_size ).
+ formulas(assumptions).
+
+ %a and b are something different 
+ differentFrom(a,b).
+ differentFrom(a,c).
+ differentFrom(a,d).
+ differentFrom(a,e).
+ differentFrom(b,c).
+ differentFrom(b,d).
+ differentFrom(b,e).
+ differentFrom(c,d).
+ differentFrom(c,e).
+ differentFrom(d,e).
+   
+
+ %the "differentFrom" relation is symmetrical
+ %so we won't bother to write it in both directions
+ differentFrom(x,y) ->  differentFrom(y,x).
+
+%   Define the "right neighbor" relation among a,b,c,d,e
+ rightneighbor(a,b) . %b is immediately to the right of a
+  rightneighbor(b,c).
+ rightneighbor(c,d).
+ rightneighbor(d,e).
+ -rightneighbor(a,a).
+ -rightneighbor(a,c).
+ -rightneighbor(a,d).
+ -rightneighbor(a,e).
+ -rightneighbor(b,a).
+ -rightneighbor(b,b).
+ -rightneighbor(b,d).
+ -rightneighbor(b,e).
+ -rightneighbor(c,a).
+ -rightneighbor(c,b).
+ -rightneighbor(c,c).
+ -rightneighbor(c,e).
+ -rightneighbor(d,a).
+ -rightneighbor(d,b).
+ -rightneighbor(d,c).
+ -rightneighbor(d,d).
+ -rightneighbor(e,a).
+ -rightneighbor(e,b).
+ -rightneighbor(e,c).
+ -rightneighbor(e,d).
+ -rightneighbor(e,e).
+  
+
+  
+ 
+% you are the neighbor of someone either if you live just to his right
+% or he lives just to your right (i.e., you live just to his left)
+ rightneighbor(x,y) | rightneighbor(y,x) <-> neighbor(x,y). %
+
+ % Each house has at least one nationality, pet, drink, color, car.
+
+    austrian(x) | belgian(x) | czech(x) | dane(x) | estonian(x).
+    alligator(x) | bulldog(x) | cat(x) | donkey(x) | eagle(x).
+    advocaat(x) | beer(x) | cider(x) | daiquiri(x) | eiswein(x). 
+    amber(x) | beige(x) | cyan(x) | denim(x) | emerald(x).
+    aston_martin(x) | bugatti(x) | cadillac(x) | dacia(x) | edonis(x).
+
+ % Each property applies to at most one house.
+
+    austrian(x) & austrian(y) -> -differentFrom(x,y). 
+    belgian(x) & belgian(y) -> -differentFrom(x,y).
+    czech(x) & czech(y) -> -differentFrom(x,y).
+    dane(x) & dane(y) -> -differentFrom(x,y). 
+    estonian(x) & estonian(y) -> -differentFrom(x,y).
+    alligator(x) & alligator(y) -> -differentFrom(x,y). 
+    bulldog(x) & bulldog(y) -> -differentFrom(x,y).
+    cat(x) & cat(y) -> -differentFrom(x,y).
+    donkey(x) & donkey(y) -> -differentFrom(x,y).
+    eagle(x) & eagle(y) -> -differentFrom(x,y).
+    beer(x) & beer(y) -> -differentFrom(x,y).
+    cider(x) & cider(y) -> -differentFrom(x,y).
+    daiquiri(x) & daiquiri(y) -> -differentFrom(x,y).
+    eiswein(x) & eiswein(y) -> -differentFrom(x,y).
+    advocaat(x) & advocaat(y) -> -differentFrom(x,y).
+    amber(x) & amber(y) -> -differentFrom(x,y).
+    denim(x) & denim(y) -> -differentFrom(x,y).
+    beige(x) & beige(y) -> -differentFrom(x,y).
+    emerald(x) & emerald(y) -> -differentFrom(x,y).
+    cyan(x) & cyan(y) -> -differentFrom(x,y).
+    aston_martin(x) & aston_martin(y) -> -differentFrom(x,y).
+    bugatti(x) & bugatti(y) -> -differentFrom(x,y).
+    cadillac(x) & cadillac(y) -> -differentFrom(x,y).
+    dacia(x) & dacia(y) <-> -differentFrom(x,y). 
+    edonis(x) & edonis(y) -> -differentFrom(x,y).  
+
+ % The clues .
+    austrian(x) -> amber(x).
+    cider(c).
+    belgian(x) <-> bulldog(x).
+    czech(a).
+    dacia(x) & eagle(y) -> neighbor(x,y).
+    czech(x) & denim(y) -> neighbor(x,y).
+    bugatti(x) <-> cat(x).
+    cadillac(x) <-> beige(x).
+    advocaat(x) <-> cyan(x).
+    dane(x) <-> eiswein(x).
+    estonian(x) <-> edonis(x).
+    cadillac(x) & donkey(y) -> neighbor(x,y).
+    cyan(x) & emerald(y) -> rightneighbor(y,x).
+    aston_martin(x) <-> daiquiri(x).
+ end_of_list.

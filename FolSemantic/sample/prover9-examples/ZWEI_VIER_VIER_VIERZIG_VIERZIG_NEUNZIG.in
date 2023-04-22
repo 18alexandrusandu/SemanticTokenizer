@@ -1,0 +1,38 @@
+set(arithmetic).
+
+assign(domain_size, 10).  % domain is {0,1,2,3,4,5,6,7,8,9}.
+
+%        Z W E I +    2
+%        V I E R +    4
+%        V I E R +    4
+%  V I E R Z I G +   40
+%  V I E R Z I G     40 
+%  -------------     --
+%  N E U N Z I G     90
+
+list(distinct). %distinct letters for distinct digits
+
+  [E,G,I,N,R,U,V,W,Z]. % set of all letters 
+  
+end_of_list.
+  
+formulas(assumptions).  
+
+  I + R + R + G + G + C0 = G + 10 * C1.
+  E + E + E + I + I + C1 = I + 10 * C2.
+  W + I + I + Z + Z + C2 = Z + 10 * C3.
+  Z + V + V + R + R + C3 = N + 10 * C4.
+              E + E + C4 = U + 10 * C5.
+              I + I + C5 = E + 10 * C6.
+              V + V + C6 = N.
+      
+  % No initial carry
+  C0 = 0.           
+
+  % Leading zeros not allowed
+  Z != 0.
+  V != 0.
+  N != 0.
+
+end_of_list.
+          

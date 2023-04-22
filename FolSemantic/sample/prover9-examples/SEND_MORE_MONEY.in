@@ -1,0 +1,25 @@
+set(arithmetic).
+
+assign(domain_size, 10).  % domain is {0,1,2,3,4,5,6,7,8,9}.
+
+list(distinct). %distinct letters for distinct digits
+
+  [D,E,M,N,O,R,S,Y]. % set of all letters 
+  
+end_of_list.
+
+formulas(assumptions).  
+
+  D + E + C0 = Y + 10 * C1. 
+  N + R + C1 = E + 10 * C2.
+  E + O + C2 = N + 10 * C3.
+  S + M + C3 = O + 10 * M.
+      
+  % No initial carry
+  C0 = 0.           
+
+  % Leading zeros not allowed
+  S != 0.
+  M != 0.
+  
+end_of_list.

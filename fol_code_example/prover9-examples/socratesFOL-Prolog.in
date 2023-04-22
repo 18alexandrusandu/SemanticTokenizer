@@ -1,0 +1,24 @@
+assign(max_seconds, 30).
+set(binary_resolution).
+set(print_gen).
+
+set(prolog_style_variables).
+redeclare(backward_implication, "COLON_MINUS").
+
+% 1. Socrates is a human.
+% 2. All humans are mortal.
+% 3. Prove that Socrates is a mortal.
+
+% constant: socrates
+% predicate human(X): X is a human
+% predicate mortal(X): X is mortal
+
+
+formulas(assumptions).
+ human(sokrates).
+ mortal(X) COLON_MINUS human(X).
+end_of_list.
+
+formulas(goals).
+ mortal(sokrates).
+end_of_list.

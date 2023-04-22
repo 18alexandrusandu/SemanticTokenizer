@@ -1,0 +1,8 @@
+formulas(assumptions).
+ %there is a lady in room 1, 2 or 3
+ l1 | l2 | l3.
+end_of_list.
+
+formulas(goals).
+ %l2.
+end_of_list.

@@ -1,0 +1,37 @@
+% Russell, R. and Norvig, P. (2010). Artificial intelligence: A modern
+% approach, 3rd Edition. pp. 336. Prentice Hall: Upper Saddle River, NJ.
+%
+% 1. It is a crime for an American to sell weapons to hostile nations.
+% 2. The country Nono, an enemy of America, has some missiles.
+% 3. All of its missiles were sold to it be Colonel West, who is American.
+% 4. Missiles are weapons (background information)
+% 5. Enemies of America are hostile (background information)
+% Prove that West is a criminal
+%
+% constants: West (col. West), Nono (country), M1 (missile)
+% predicate American(x): x is American
+% predicate Weapon(x): x is a weapon
+% predicate Sells(x,y,z): x sells object y to z 
+% predicate Hostile(x): x is hostile
+% predicate Owns(x,y): entity x owns object y
+% predicate Missile(x): x is a missile
+% predicate Weapon(x): x is a weapon
+% predicate Enemy(x,America): x is an enemy of America
+% predicate Criminal(x): x is a criminal
+
+set(print_gen).
+
+formulas(assumptions).
+ American(x) & Weapon(y) & Sells(x,y,z) & Hostile(z) -> Criminal(x). %1
+ Owns(Nono,M1). %2
+ Missile(M1). %2
+ Enemy(Nono,America). %2
+ Missile(x) & Owns(Nono,x) -> Sells(West,x,Nono). %3
+ American(West). %3
+ Missile(x) -> Weapon(x). %4
+ Enemy(x,America) -> Hostile(x). %5
+end_of_list.
+
+formulas(goals).
+ Criminal(West).
+end_of_list.

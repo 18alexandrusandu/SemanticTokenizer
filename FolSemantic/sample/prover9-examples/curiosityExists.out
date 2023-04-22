@@ -1,0 +1,142 @@
+============================== Prover9 ===============================
+Prover9 (32) version 2009-11A, November 2009.
+Process 15788 was started by srazvan on c13.is.cs.utcluj.ro,
+Mon Nov 20 11:35:12 2017
+The command was "prover9 -f curiosityExists.in".
+============================== end of head ===========================
+
+============================== INPUT =================================
+
+% Reading from file curiosityExists.in
+
+set(binary_resolution).
+
+formulas(assumptions).
+(all x ((all y (Animal(y) -> Loves(x,y))) -> (exists y Loves(y,x)))).
+(all x ((exists z (Animal(z) & Kills(x,z))) -> (all y -Loves(y,x)))).
+(all x (Animal(x) -> Loves(Jack,x))).
+Kills(Jack,Tuna) | Kills(Curiosity,Tuna).
+Cat(Tuna).
+(all x (Cat(x) -> Animal(x))).
+end_of_list.
+
+formulas(goals).
+(exists x Kills(x,Tuna)).
+end_of_list.
+
+============================== end of input ==========================
+
+============================== PROCESS NON-CLAUSAL FORMULAS ==========
+
+% Formulas that are not ordinary clauses:
+1 (all x ((all y (Animal(y) -> Loves(x,y))) -> (exists y Loves(y,x)))) # label(non_clause).  [assumption].
+2 (all x ((exists z (Animal(z) & Kills(x,z))) -> (all y -Loves(y,x)))) # label(non_clause).  [assumption].
+3 (all x (Animal(x) -> Loves(Jack,x))) # label(non_clause).  [assumption].
+4 (all x (Cat(x) -> Animal(x))) # label(non_clause).  [assumption].
+5 (exists x Kills(x,Tuna)) # label(non_clause) # label(goal).  [goal].
+
+============================== end of process non-clausal formulas ===
+
+============================== PROCESS INITIAL CLAUSES ===============
+
+% Clauses before input processing:
+
+formulas(usable).
+end_of_list.
+
+formulas(sos).
+Animal(f1(x)) | Loves(f2(x),x).  [clausify(1)].
+-Loves(x,f1(x)) | Loves(f2(x),x).  [clausify(1)].
+-Animal(x) | -Kills(y,x) | -Loves(z,y).  [clausify(2)].
+-Animal(x) | Loves(Jack,x).  [clausify(3)].
+Kills(Jack,Tuna) | Kills(Curiosity,Tuna).  [assumption].
+Cat(Tuna).  [assumption].
+-Cat(x) | Animal(x).  [clausify(4)].
+-Kills(x,Tuna).  [deny(5)].
+end_of_list.
+
+formulas(demodulators).
+end_of_list.
+
+============================== PREDICATE ELIMINATION =================
+
+Eliminating Animal/1
+6 -Animal(x) | -Kills(y,x) | -Loves(z,y).  [clausify(2)].
+7 Animal(f1(x)) | Loves(f2(x),x).  [clausify(1)].
+Derived: -Kills(x,f1(y)) | -Loves(z,x) | Loves(f2(y),y).  [resolve(6,a,7,a)].
+8 -Animal(x) | Loves(Jack,x).  [clausify(3)].
+Derived: Loves(Jack,f1(x)) | Loves(f2(x),x).  [resolve(8,a,7,a)].
+9 -Cat(x) | Animal(x).  [clausify(4)].
+Derived: -Cat(x) | -Kills(y,x) | -Loves(z,y).  [resolve(9,b,6,a)].
+Derived: -Cat(x) | Loves(Jack,x).  [resolve(9,b,8,a)].
+
+Eliminating Cat/1
+10 -Cat(x) | -Kills(y,x) | -Loves(z,y).  [resolve(9,b,6,a)].
+11 Cat(Tuna).  [assumption].
+Derived: -Kills(x,Tuna) | -Loves(y,x).  [resolve(10,a,11,a)].
+12 -Cat(x) | Loves(Jack,x).  [resolve(9,b,8,a)].
+Derived: Loves(Jack,Tuna).  [resolve(12,a,11,a)].
+
+============================== end predicate elimination =============
+
+Auto_denials:  (non-Horn, no changes).
+
+Term ordering decisions:
+Predicate symbol precedence:  predicate_order([ Loves, Kills ]).
+Function symbol precedence:  function_order([ Jack, Tuna, Curiosity, f1, f2 ]).
+After inverse_order:  (no changes).
+Unfolding symbols: (none).
+
+Auto_inference settings:
+  % set(binary_resolution).  % (non-Horn)
+  % set(neg_ur_resolution).  % (non-Horn, less than 100 clauses)
+
+Auto_process settings:
+  % set(factor).  % (non-Horn)
+  % set(unit_deletion).  % (non-Horn)
+
+kept:      13 -Loves(x,f1(x)) | Loves(f2(x),x).  [clausify(1)].
+kept:      14 Kills(Jack,Tuna) | Kills(Curiosity,Tuna).  [assumption].
+kept:      15 -Kills(x,Tuna).  [deny(5)].
+kept:      16 -Kills(x,f1(y)) | -Loves(z,x) | Loves(f2(y),y).  [resolve(6,a,7,a)].
+kept:      17 Loves(Jack,f1(x)) | Loves(f2(x),x).  [resolve(8,a,7,a)].
+kept:      18 Loves(Jack,Tuna).  [resolve(12,a,11,a)].
+
+============================== PROOF =================================
+
+% Proof 1 at 0.01 (+ 0.00) seconds.
+% Length of proof is 4.
+% Level of proof is 2.
+% Maximum clause weight is 6.000.
+% Given clauses 0.
+
+5 (exists x Kills(x,Tuna)) # label(non_clause) # label(goal).  [goal].
+14 Kills(Jack,Tuna) | Kills(Curiosity,Tuna).  [assumption].
+15 -Kills(x,Tuna).  [deny(5)].
+19 $F.  [back_unit_del(14),unit_del(a,15),unit_del(b,15)].
+
+============================== end of proof ==========================
+
+============================== STATISTICS ============================
+
+Given=0. Generated=8. Kept=6. proofs=1.
+Usable=0. Sos=1. Demods=0. Limbo=4, Disabled=15. Hints=0.
+Kept_by_rule=0, Deleted_by_rule=0.
+Forward_subsumed=1. Back_subsumed=0.
+Sos_limit_deleted=0. Sos_displaced=0. Sos_removed=0.
+New_demodulators=0 (0 lex), Back_demodulated=0. Back_unit_deleted=1.
+Demod_attempts=0. Demod_rewrites=0.
+Res_instance_prunes=0. Para_instance_prunes=0. Basic_paramod_prunes=0.
+Nonunit_fsub_feature_tests=1. Nonunit_bsub_feature_tests=3.
+Megabytes=0.03.
+User_CPU=0.01, System_CPU=0.00, Wall_clock=0.
+
+============================== end of statistics =====================
+
+============================== end of search =========================
+
+THEOREM PROVED
+
+Exiting with 1 proof.
+
+Process 15788 exit (max_proofs) Mon Nov 20 11:35:12 2017

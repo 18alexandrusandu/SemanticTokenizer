@@ -1,0 +1,48 @@
+assign(max_seconds, 30).
+
+formulas(assumptions).
+
+ %there is a lady in room 1, 2 or 3
+ l1 | l2 | l3.
+ %no lady in more than 1 room; the princess is unique 
+ l1 -> -l2.   l1 -> -l3.   l2 -> -l1.
+ l2 -> -l3.   l3 -> -l1.   l3 -> -l2.
+
+ %there is 1 tiger in one of the rooms 1, 2 or 3
+ t1 | t2 | t3.
+
+ %no tiger in more than 1 room; the tiger is unique as well
+ t1 -> -t2.   t1 -> -t3.   t2 -> -t1.
+ t2 -> -t3.   t3 -> -t1.   t3 -> -t2.
+
+ %we have one empty room
+ e1 | e2 | e3.
+ %but no more than one
+ e1 -> -e2.   e1 -> -e3.   e2 -> -e1.
+ e2 -> -e3.   e3 -> -e1.   e3 -> -e2.
+
+ %no tiger in the room where the lady stays
+ l1 -> -t1.   l2 -> -t2.   l3 -> -t3.
+
+ %the room where the lady stays is not empty
+ l1 -> -e1.   l2 -> -e2.   l3 -> -e3.
+
+ %the room where a tiger stays is not empty
+ t1 -> -e1.   t2 -> -e2.   t3 -> -e3.
+
+ %the clue on the lady's room is true; on the tiger's room is false
+ %the clue on the empty room is either false or true
+
+ %clue on door #1: room #3 is empty 
+ l1 -> e3.    t1 -> -e3.
+
+ %clue on door #2: the tiger is in room #1
+ l2 -> t1.    t2 -> -t1.
+
+ %clue on door #3: this room is empty
+ l3 -> e3.    t3 -> -e3.
+end_of_list.
+
+formulas(goals).
+ %l1.
+end_of_list.

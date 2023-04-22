@@ -1,0 +1,200 @@
+============================== Prover9 ===============================
+Prover9 (32) version 2009-11A, November 2009.
+Process 15425 was started by srazvan on c13.is.cs.utcluj.ro,
+Mon Nov 20 10:35:25 2017
+The command was "prover9 -f dukeOfCambridge.in".
+============================== end of head ===========================
+
+============================== INPUT =================================
+
+% Reading from file dukeOfCambridge.in
+
+set(paramodulation).
+
+formulas(assumptions).
+Mother(ElizabethII,Charles).
+Mother(ElizabethII,Andrew).
+Father(Charles,William).
+Father(Charles,Harry).
+Father(x,y) | Mother(x,y) -> Parent(x,y).
+Parent(x,y) & Parent(y,z) -> Grandparent(x,z).
+William = DukeOfCambridge.
+Queen = ElizabethII.
+end_of_list.
+
+formulas(goals).
+Grandparent(Queen,DukeOfCambridge).
+end_of_list.
+
+============================== end of input ==========================
+
+============================== PROCESS NON-CLAUSAL FORMULAS ==========
+
+% Formulas that are not ordinary clauses:
+1 Father(x,y) | Mother(x,y) -> Parent(x,y) # label(non_clause).  [assumption].
+2 Parent(x,y) & Parent(y,z) -> Grandparent(x,z) # label(non_clause).  [assumption].
+3 Grandparent(Queen,DukeOfCambridge) # label(non_clause) # label(goal).  [goal].
+
+============================== end of process non-clausal formulas ===
+
+============================== PROCESS INITIAL CLAUSES ===============
+
+% Clauses before input processing:
+
+formulas(usable).
+end_of_list.
+
+formulas(sos).
+Mother(ElizabethII,Charles).  [assumption].
+Mother(ElizabethII,Andrew).  [assumption].
+Father(Charles,William).  [assumption].
+Father(Charles,Harry).  [assumption].
+-Father(x,y) | Parent(x,y).  [clausify(1)].
+-Mother(x,y) | Parent(x,y).  [clausify(1)].
+-Parent(x,y) | -Parent(y,z) | Grandparent(x,z).  [clausify(2)].
+William = DukeOfCambridge.  [assumption].
+Queen = ElizabethII.  [assumption].
+-Grandparent(Queen,DukeOfCambridge).  [deny(3)].
+end_of_list.
+
+formulas(demodulators).
+end_of_list.
+
+============================== PREDICATE ELIMINATION =================
+
+Eliminating Mother/2
+4 -Mother(x,y) | Parent(x,y).  [clausify(1)].
+5 Mother(ElizabethII,Charles).  [assumption].
+6 Mother(ElizabethII,Andrew).  [assumption].
+Derived: Parent(ElizabethII,Charles).  [resolve(4,a,5,a)].
+Derived: Parent(ElizabethII,Andrew).  [resolve(4,a,6,a)].
+
+Eliminating Father/2
+7 -Father(x,y) | Parent(x,y).  [clausify(1)].
+8 Father(Charles,William).  [assumption].
+9 Father(Charles,Harry).  [assumption].
+Derived: Parent(Charles,William).  [resolve(7,a,8,a)].
+Derived: Parent(Charles,Harry).  [resolve(7,a,9,a)].
+
+============================== end predicate elimination =============
+
+Auto_denials:  (no changes).
+
+Term ordering decisions:
+Predicate symbol precedence:  predicate_order([ =, Parent, Grandparent ]).
+Function symbol precedence:  function_order([ Charles, ElizabethII, William, Andrew, DukeOfCambridge, Harry, Queen ]).
+After inverse_order:  (no changes).
+Unfolding symbols: (none).
+
+Auto_inference settings:
+  % set(paramodulation).  % (positive equality literals)
+  % set(hyper_resolution).  % (nonunit Horn with equality)
+    % set(hyper_resolution) -> set(pos_hyper_resolution).
+  % set(neg_ur_resolution).  % (nonunit Horn with equality)
+  % assign(para_lit_limit, 3).  % (nonunit Horn with equality)
+
+Auto_process settings:  (no changes).
+
+kept:      10 -Parent(x,y) | -Parent(y,z) | Grandparent(x,z).  [clausify(2)].
+           11 William = DukeOfCambridge.  [assumption].
+kept:      12 DukeOfCambridge = William.  [copy(11),flip(a)].
+kept:      13 Queen = ElizabethII.  [assumption].
+           14 -Grandparent(Queen,DukeOfCambridge).  [deny(3)].
+kept:      15 -Grandparent(ElizabethII,William).  [copy(14),rewrite([13(1),12(2)])].
+kept:      16 Parent(ElizabethII,Charles).  [resolve(4,a,5,a)].
+kept:      17 Parent(ElizabethII,Andrew).  [resolve(4,a,6,a)].
+kept:      18 Parent(Charles,William).  [resolve(7,a,8,a)].
+kept:      19 Parent(Charles,Harry).  [resolve(7,a,9,a)].
+
+============================== end of process initial clauses ========
+
+============================== CLAUSES FOR SEARCH ====================
+
+% Clauses after input processing:
+
+formulas(usable).
+end_of_list.
+
+formulas(sos).
+10 -Parent(x,y) | -Parent(y,z) | Grandparent(x,z).  [clausify(2)].
+12 DukeOfCambridge = William.  [copy(11),flip(a)].
+13 Queen = ElizabethII.  [assumption].
+15 -Grandparent(ElizabethII,William).  [copy(14),rewrite([13(1),12(2)])].
+16 Parent(ElizabethII,Charles).  [resolve(4,a,5,a)].
+17 Parent(ElizabethII,Andrew).  [resolve(4,a,6,a)].
+18 Parent(Charles,William).  [resolve(7,a,8,a)].
+19 Parent(Charles,Harry).  [resolve(7,a,9,a)].
+end_of_list.
+
+formulas(demodulators).
+12 DukeOfCambridge = William.  [copy(11),flip(a)].
+13 Queen = ElizabethII.  [assumption].
+end_of_list.
+
+============================== end of clauses for search =============
+
+============================== SEARCH ================================
+
+% Starting search at 0.00 seconds.
+
+given #1 (I,wt=9): 10 -Parent(x,y) | -Parent(y,z) | Grandparent(x,z).  [clausify(2)].
+
+given #2 (I,wt=3): 12 DukeOfCambridge = William.  [copy(11),flip(a)].
+
+given #3 (I,wt=3): 13 Queen = ElizabethII.  [assumption].
+
+given #4 (I,wt=3): 15 -Grandparent(ElizabethII,William).  [copy(14),rewrite([13(1),12(2)])].
+
+given #5 (I,wt=3): 16 Parent(ElizabethII,Charles).  [resolve(4,a,5,a)].
+
+============================== PROOF =================================
+
+% Proof 1 at 0.00 (+ 0.00) seconds.
+% Length of proof is 17.
+% Level of proof is 4.
+% Maximum clause weight is 9.000.
+% Given clauses 5.
+
+1 Father(x,y) | Mother(x,y) -> Parent(x,y) # label(non_clause).  [assumption].
+2 Parent(x,y) & Parent(y,z) -> Grandparent(x,z) # label(non_clause).  [assumption].
+3 Grandparent(Queen,DukeOfCambridge) # label(non_clause) # label(goal).  [goal].
+4 -Mother(x,y) | Parent(x,y).  [clausify(1)].
+5 Mother(ElizabethII,Charles).  [assumption].
+7 -Father(x,y) | Parent(x,y).  [clausify(1)].
+8 Father(Charles,William).  [assumption].
+10 -Parent(x,y) | -Parent(y,z) | Grandparent(x,z).  [clausify(2)].
+11 William = DukeOfCambridge.  [assumption].
+12 DukeOfCambridge = William.  [copy(11),flip(a)].
+13 Queen = ElizabethII.  [assumption].
+14 -Grandparent(Queen,DukeOfCambridge).  [deny(3)].
+15 -Grandparent(ElizabethII,William).  [copy(14),rewrite([13(1),12(2)])].
+16 Parent(ElizabethII,Charles).  [resolve(4,a,5,a)].
+18 Parent(Charles,William).  [resolve(7,a,8,a)].
+20 -Parent(Charles,William).  [ur(10,a,16,a,c,15,a)].
+21 $F.  [resolve(20,a,18,a)].
+
+============================== end of proof ==========================
+
+============================== STATISTICS ============================
+
+Given=5. Generated=11. Kept=9. proofs=1.
+Usable=5. Sos=3. Demods=2. Limbo=0, Disabled=14. Hints=0.
+Kept_by_rule=0, Deleted_by_rule=0.
+Forward_subsumed=2. Back_subsumed=0.
+Sos_limit_deleted=0. Sos_displaced=0. Sos_removed=0.
+New_demodulators=2 (0 lex), Back_demodulated=0. Back_unit_deleted=0.
+Demod_attempts=47. Demod_rewrites=2.
+Res_instance_prunes=0. Para_instance_prunes=0. Basic_paramod_prunes=0.
+Nonunit_fsub_feature_tests=0. Nonunit_bsub_feature_tests=1.
+Megabytes=0.03.
+User_CPU=0.00, System_CPU=0.00, Wall_clock=0.
+
+============================== end of statistics =====================
+
+============================== end of search =========================
+
+THEOREM PROVED
+
+Exiting with 1 proof.
+
+Process 15425 exit (max_proofs) Mon Nov 20 10:35:25 2017

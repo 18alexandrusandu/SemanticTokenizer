@@ -1,0 +1,30 @@
+% FDR is a politician.
+% A politician could be an isolationist or an interventionist (maybe both!).
+% An interventionist would declare war.
+% If US is under attack, even an isolationist would declare war.
+% US is under atack.
+
+% constant: fdr (meaning FDR)
+% constant: us (meaning US)
+% predicate: under_attack(x) (meaning country x is under attack)
+% predicate: politician(x)  (meaning x is a politician)
+% predicate: interventionist(x) (meaning x is an interventionist) 
+% predicate: isolationist(x) (meaning x is an isolationist) 
+% predicate: declare_war(x) (meaning x will declare war)
+
+set(prolog_style_variables).
+redeclare(backward_implication, "COLON_MINUS").
+redeclare(disjunction, "SEMICOLON").
+redeclare(conjunction, "COMMA").
+
+formulas(assumptions).
+ under_attack(us).
+ politician(fdr).
+ (isolationist(P) SEMICOLON interventionist(P)) COLON_MINUS politician(P).
+ declare_war(X) COLON_MINUS interventionist(X).
+ declare_war(X) COLON_MINUS isolationist(X) COMMA under_attack(us) .
+end_of_list.
+
+formulas(goals).
+ declare_war(fdr).
+end_of_list.

@@ -1,0 +1,20 @@
+set(binary_resolution).
+set(print_gen).
+
+% 1. Socrates is a human.
+% 2. All humans are mortal.
+% 3. Prove that Socrates is a mortal.
+
+% constant: Socrates
+% predicate human(x): x is a human
+% predicate mortal(x): x is mortal
+
+
+formulas(assumptions).
+ human(Sokrates).
+ human(x) -> mortal(x).
+end_of_list.
+
+formulas(goals).
+ mortal(Sokrates).
+end_of_list.

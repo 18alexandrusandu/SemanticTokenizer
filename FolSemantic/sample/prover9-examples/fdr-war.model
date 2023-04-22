@@ -1,0 +1,15 @@
+interpretation( 2, [number=1, seconds=0], [
+
+        relation(attack, [ 1 ]),
+
+        relation(declare_war, [ 1 ]),
+
+        relation(fdr, [ 1 ]),
+
+        relation(interventionist, [ 0 ]),
+
+        relation(isolationist, [ 1 ]),
+
+        relation(politician, [ 1 ])
+]).
+

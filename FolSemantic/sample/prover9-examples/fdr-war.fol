@@ -1,0 +1,19 @@
+assign(max_seconds, 30).
+%set(binary_resolution).
+assign(max_models,-1).
+
+formulas(assumptions).
+ fdr.
+ %attack.
+  
+ fdr -> politician.
+ politician -> isolationist | interventionist.
+ interventionist -> declare_war.
+ isolationist & attack -> declare_war.
+ %declare_war.
+ -interventionist.
+end_of_list.
+
+formulas(goals).
+ % isolationist. 
+end_of_list.

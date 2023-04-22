@@ -1,0 +1,23 @@
+assign(max_seconds, 30).
+set(binary_resolution).
+set(print_gen).
+
+% 1. If someone's name is Socrates, then he must be a human.
+% 2. Humans are mortal.
+% 3. The guy over there is called Socrates.
+% 4. Prove that Socrates is a mortal.
+
+% S: the guy is called Socrates
+% H: Socrates is a human
+% M: Socrates is mortal
+
+
+formulas(assumptions).
+ S.
+ S -> H.
+ H -> M.
+end_of_list.
+
+formulas(goals).
+M.
+end_of_list.

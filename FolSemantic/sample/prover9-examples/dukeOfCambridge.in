@@ -1,0 +1,19 @@
+set(paramodulation).
+
+% constants: ElizabethII,
+% predicate Mother(x,y): x is motehr of y
+
+formulas(assumptions).
+  Mother(ElizabethII, Charles).
+  Mother(ElizabethII, Andrew).
+  Father(Charles, William).
+  Father(Charles, Harry).
+  Father(x,y) | Mother(x,y) -> Parent(x,y).
+  Parent(x,y) & Parent(y,z) -> Grandparent(x,z).
+  William = DukeOfCambridge.
+  Queen = ElizabethII.
+end_of_list.
+
+formulas(goals).
+  Grandparent(Queen,DukeOfCambridge).
+end_of_list.

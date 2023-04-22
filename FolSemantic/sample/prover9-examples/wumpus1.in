@@ -1,0 +1,39 @@
+assign(max_seconds, 30). 
+
+formulas(assumptions).
+-S11. 
+-S21. %colon 2, line 1
+S12.
+-B11.
+B21.
+-B12.
+W11 -> S11.
+W11 -> S12.
+W11 -> S21.
+W12 -> S12.
+W12 -> S11.
+W12 -> S22.
+W12 -> S13.
+W21 -> S21.
+W21 -> S11.
+W21 -> S22.
+W21 -> S13.
+W22 -> S22.
+W22 -> S21.
+W22 -> S12.
+W22 -> S23.
+W22 -> S32.
+W13 -> S13.
+W13 -> S14.
+W13 -> S23.
+W13 -> S12.
+W31 -> S31.
+W31 -> S21.
+W31 -> S32.
+W31 -> S41.
+S12 -> W11 | W22 | W13 | W12.
+end_of_list.
+
+formulas(goals).
+W13.
+end_of_list.

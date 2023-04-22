@@ -1,0 +1,147 @@
+============================== Prover9 ===============================
+Prover9 (64) version 2009-11A, November 2009.
+Process 7122 was started by srazvan on asusnegru.localdomain,
+Sun Oct 29 20:30:52 2017
+The command was "prover9 -f fdr-war.in".
+============================== end of head ===========================
+
+============================== INPUT =================================
+
+% Reading from file fdr-war.in
+
+assign(max_seconds,30).
+set(binary_resolution).
+
+formulas(assumptions).
+fdr.
+attack.
+fdr -> politician.
+politician -> isolationist | interventionist.
+interventionist -> declare_war.
+isolationist & attack -> declare_war.
+end_of_list.
+
+formulas(goals).
+declare_war.
+end_of_list.
+
+============================== end of input ==========================
+
+============================== PROCESS NON-CLAUSAL FORMULAS ==========
+
+% Formulas that are not ordinary clauses:
+1 fdr -> politician # label(non_clause).  [assumption].
+2 politician -> isolationist | interventionist # label(non_clause).  [assumption].
+3 interventionist -> declare_war # label(non_clause).  [assumption].
+4 isolationist & attack -> declare_war # label(non_clause).  [assumption].
+5 declare_war # label(non_clause) # label(goal).  [goal].
+
+============================== end of process non-clausal formulas ===
+
+============================== PROCESS INITIAL CLAUSES ===============
+
+% Clauses before input processing:
+
+formulas(usable).
+end_of_list.
+
+formulas(sos).
+fdr.  [assumption].
+attack.  [assumption].
+-fdr | politician.  [clausify(1)].
+-politician | isolationist | interventionist.  [clausify(2)].
+-interventionist | declare_war.  [clausify(3)].
+-isolationist | -attack | declare_war.  [clausify(4)].
+-declare_war.  [deny(5)].
+end_of_list.
+
+formulas(demodulators).
+end_of_list.
+
+============================== PREDICATE ELIMINATION =================
+
+No predicates eliminated.
+
+============================== end predicate elimination =============
+
+Auto_denials:  (non-Horn, no changes).
+
+Term ordering decisions:
+Predicate symbol precedence:  predicate_order([ attack, declare_war, fdr, interventionist, isolationist, politician ]).
+Function symbol precedence:  function_order([ ]).
+After inverse_order:  (no changes).
+Unfolding symbols: (none).
+
+Auto_inference settings:
+  % set(binary_resolution).  % (non-Horn)
+  % set(neg_ur_resolution).  % (non-Horn, less than 100 clauses)
+
+Auto_process settings:
+  % set(factor).  % (non-Horn)
+  % set(unit_deletion).  % (non-Horn)
+
+kept:      6 fdr.  [assumption].
+kept:      7 attack.  [assumption].
+           8 -fdr | politician.  [clausify(1)].
+kept:      9 politician.  [copy(8),unit_del(a,6)].
+           10 -politician | isolationist | interventionist.  [clausify(2)].
+kept:      11 isolationist | interventionist.  [copy(10),unit_del(a,9)].
+kept:      12 -interventionist | declare_war.  [clausify(3)].
+           13 -isolationist | -attack | declare_war.  [clausify(4)].
+kept:      14 -isolationist | declare_war.  [copy(13),unit_del(b,7)].
+kept:      15 -declare_war.  [deny(5)].
+kept:      16 -isolationist.  [back_unit_del(14),unit_del(b,15)].
+kept:      17 -interventionist.  [back_unit_del(12),unit_del(b,15)].
+
+============================== PROOF =================================
+
+% Proof 1 at 0.01 (+ 0.01) seconds.
+% Length of proof is 18.
+% Level of proof is 4.
+% Maximum clause weight is 2.000.
+% Given clauses 0.
+
+1 fdr -> politician # label(non_clause).  [assumption].
+2 politician -> isolationist | interventionist # label(non_clause).  [assumption].
+3 interventionist -> declare_war # label(non_clause).  [assumption].
+4 isolationist & attack -> declare_war # label(non_clause).  [assumption].
+5 declare_war # label(non_clause) # label(goal).  [goal].
+6 fdr.  [assumption].
+7 attack.  [assumption].
+8 -fdr | politician.  [clausify(1)].
+9 politician.  [copy(8),unit_del(a,6)].
+10 -politician | isolationist | interventionist.  [clausify(2)].
+11 isolationist | interventionist.  [copy(10),unit_del(a,9)].
+12 -interventionist | declare_war.  [clausify(3)].
+13 -isolationist | -attack | declare_war.  [clausify(4)].
+14 -isolationist | declare_war.  [copy(13),unit_del(b,7)].
+15 -declare_war.  [deny(5)].
+16 -isolationist.  [back_unit_del(14),unit_del(b,15)].
+17 -interventionist.  [back_unit_del(12),unit_del(b,15)].
+18 $F.  [back_unit_del(11),unit_del(a,16),unit_del(b,17)].
+
+============================== end of proof ==========================
+
+============================== STATISTICS ============================
+
+Given=0. Generated=10. Kept=9. proofs=1.
+Usable=0. Sos=4. Demods=0. Limbo=2, Disabled=10. Hints=0.
+Kept_by_rule=0, Deleted_by_rule=0.
+Forward_subsumed=0. Back_subsumed=0.
+Sos_limit_deleted=0. Sos_displaced=0. Sos_removed=0.
+New_demodulators=0 (0 lex), Back_demodulated=0. Back_unit_deleted=3.
+Demod_attempts=0. Demod_rewrites=0.
+Res_instance_prunes=0. Para_instance_prunes=0. Basic_paramod_prunes=0.
+Nonunit_fsub_feature_tests=0. Nonunit_bsub_feature_tests=3.
+Megabytes=0.03.
+User_CPU=0.01, System_CPU=0.01, Wall_clock=0.
+
+============================== end of statistics =====================
+
+============================== end of search =========================
+
+THEOREM PROVED
+
+Exiting with 1 proof.
+
+Process 7122 exit (max_proofs) Sun Oct 29 20:30:52 2017

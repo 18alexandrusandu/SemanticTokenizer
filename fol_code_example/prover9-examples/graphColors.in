@@ -1,0 +1,40 @@
+formulas(assumptions).
+ %each node has assigned at least a color
+ a_Red | a_Green | a_Blue.
+ b_Red | b_Green | b_Blue.
+ c_Red | c_Green | c_Blue.
+ d_Red | d_Green | d_Blue.
+
+ %no node can have more than one color
+ a_Red -> -a_Blue.  
+ a_Red -> -a_Green. 
+ a_Green -> -a_Blue.
+
+ b_Red -> -b_Blue.
+ b_Red -> -b_Green.
+ b_Green -> -b_Blue.
+
+ c_Red -> -c_Blue.
+ c_Red -> -c_Green.
+ c_Green -> -c_Blue.
+
+ d_Red -> -d_Blue.
+ d_Red -> -d_Green.
+ d_Green -> -d_Blue.
+
+ %neighbors cannot have the same color
+ a_Red -> -b_Red.  a_Red -> -c_Red.
+ a_Red -> -d_Red.  a_Green -> -b_Green.
+ a_Green -> -c_Green.  a_Green -> -d_Green.
+ a_Blue -> -b_Blue.  a_Blue -> -c_Blue.
+ a_Blue -> -d_Blue. 
+
+ b_Red -> -d_Red.  b_Blue -> -d_Blue.
+ b_Green -> -d_Green. 
+
+ c_Red -> -d_Red.  c_Blue -> -d_Blue.
+ c_Green -> -d_Green.
+end_of_list.
+
+formulas(goals).
+end_of_list.

@@ -1,0 +1,157 @@
+============================== Prover9 ===============================
+Prover9 (64) version 2009-11A, November 2009.
+Process 6304 was started by srazvan on asusnegru.localdomain,
+Sun Oct 29 19:28:59 2017
+The command was "prover9 -f socrates.in".
+============================== end of head ===========================
+
+============================== INPUT =================================
+
+% Reading from file socrates.in
+
+assign(max_seconds,30).
+set(binary_resolution).
+
+formulas(assumptions).
+S.
+S -> H.
+H -> M.
+end_of_list.
+
+formulas(goals).
+M.
+end_of_list.
+
+============================== end of input ==========================
+
+============================== PROCESS NON-CLAUSAL FORMULAS ==========
+
+% Formulas that are not ordinary clauses:
+1 S -> H # label(non_clause).  [assumption].
+2 H -> M # label(non_clause).  [assumption].
+3 M # label(non_clause) # label(goal).  [goal].
+
+============================== end of process non-clausal formulas ===
+
+============================== PROCESS INITIAL CLAUSES ===============
+
+% Clauses before input processing:
+
+formulas(usable).
+end_of_list.
+
+formulas(sos).
+S.  [assumption].
+-S | H.  [clausify(1)].
+-H | M.  [clausify(2)].
+-M.  [deny(3)].
+end_of_list.
+
+formulas(demodulators).
+end_of_list.
+
+============================== PREDICATE ELIMINATION =================
+
+No predicates eliminated.
+
+============================== end predicate elimination =============
+
+Auto_denials:  (no changes).
+
+Term ordering decisions:
+Predicate symbol precedence:  predicate_order([ H, S, M ]).
+Function symbol precedence:  function_order([ ]).
+After inverse_order:  (no changes).
+Unfolding symbols: (none).
+
+Auto_inference settings:
+  % set(neg_binary_resolution).  % (HNE depth_diff=0)
+  % clear(ordered_res).  % (HNE depth_diff=0)
+  % set(ur_resolution).  % (HNE depth_diff=0)
+    % set(ur_resolution) -> set(pos_ur_resolution).
+    % set(ur_resolution) -> set(neg_ur_resolution).
+
+Auto_process settings:  (no changes).
+
+kept:      4 S.  [assumption].
+kept:      5 -S | H.  [clausify(1)].
+kept:      6 -H | M.  [clausify(2)].
+kept:      7 -M.  [deny(3)].
+
+============================== end of process initial clauses ========
+
+============================== CLAUSES FOR SEARCH ====================
+
+% Clauses after input processing:
+
+formulas(usable).
+end_of_list.
+
+formulas(sos).
+4 S.  [assumption].
+5 -S | H.  [clausify(1)].
+6 -H | M.  [clausify(2)].
+7 -M.  [deny(3)].
+end_of_list.
+
+formulas(demodulators).
+end_of_list.
+
+============================== end of clauses for search =============
+
+============================== SEARCH ================================
+
+% Starting search at 0.01 seconds.
+
+given #1 (I,wt=1): 4 S.  [assumption].
+
+given #2 (I,wt=2): 5 -S | H.  [clausify(1)].
+
+given #3 (I,wt=2): 6 -H | M.  [clausify(2)].
+
+given #4 (I,wt=1): 7 -M.  [deny(3)].
+
+============================== PROOF =================================
+
+% Proof 1 at 0.01 (+ 0.01) seconds.
+% Length of proof is 10.
+% Level of proof is 3.
+% Maximum clause weight is 2.000.
+% Given clauses 4.
+
+1 S -> H # label(non_clause).  [assumption].
+2 H -> M # label(non_clause).  [assumption].
+3 M # label(non_clause) # label(goal).  [goal].
+4 S.  [assumption].
+5 -S | H.  [clausify(1)].
+6 -H | M.  [clausify(2)].
+7 -M.  [deny(3)].
+8 H.  [resolve(5,a,4,a)].
+9 -H.  [resolve(7,a,6,b)].
+10 $F.  [resolve(9,a,8,a)].
+
+============================== end of proof ==========================
+
+============================== STATISTICS ============================
+
+Given=4. Generated=7. Kept=6. proofs=1.
+Usable=3. Sos=1. Demods=0. Limbo=0, Disabled=5. Hints=0.
+Kept_by_rule=0, Deleted_by_rule=0.
+Forward_subsumed=1. Back_subsumed=1.
+Sos_limit_deleted=0. Sos_displaced=0. Sos_removed=0.
+New_demodulators=0 (0 lex), Back_demodulated=0. Back_unit_deleted=0.
+Demod_attempts=0. Demod_rewrites=0.
+Res_instance_prunes=0. Para_instance_prunes=0. Basic_paramod_prunes=0.
+Nonunit_fsub_feature_tests=0. Nonunit_bsub_feature_tests=3.
+Megabytes=0.03.
+User_CPU=0.01, System_CPU=0.01, Wall_clock=0.
+
+============================== end of statistics =====================
+
+============================== end of search =========================
+
+THEOREM PROVED
+
+Exiting with 1 proof.
+
+Process 6304 exit (max_proofs) Sun Oct 29 19:28:59 2017

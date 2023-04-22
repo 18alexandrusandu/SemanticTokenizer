@@ -1,0 +1,186 @@
+============================== Prover9 ===============================
+Prover9 (64) version 2009-11A, November 2009.
+Process 3411 was started by srazvan on asusnegru.localdomain,
+Mon Nov 20 06:16:30 2017
+The command was "prover9 -f colonelWest.in".
+============================== end of head ===========================
+
+============================== INPUT =================================
+
+% Reading from file colonelWest.in
+
+set(print_gen).
+
+formulas(assumptions).
+American(x) & Weapon(y) & Sells(x,y,z) & Hostile(z) -> Criminal(x).
+Owns(Nono,M1).
+Missile(M1).
+Enemy(Nono,America).
+Missile(x) & Owns(Nono,x) -> Sells(West,x,Nono).
+American(West).
+Missile(x) -> Weapon(x).
+Enemy(x,America) -> Hostile(x).
+end_of_list.
+
+formulas(goals).
+Criminal(West).
+end_of_list.
+
+============================== end of input ==========================
+
+============================== PROCESS NON-CLAUSAL FORMULAS ==========
+
+% Formulas that are not ordinary clauses:
+1 American(x) & Weapon(y) & Sells(x,y,z) & Hostile(z) -> Criminal(x) # label(non_clause).  [assumption].
+2 Missile(x) & Owns(Nono,x) -> Sells(West,x,Nono) # label(non_clause).  [assumption].
+3 Missile(x) -> Weapon(x) # label(non_clause).  [assumption].
+4 Enemy(x,America) -> Hostile(x) # label(non_clause).  [assumption].
+5 Criminal(West) # label(non_clause) # label(goal).  [goal].
+
+============================== end of process non-clausal formulas ===
+
+============================== PROCESS INITIAL CLAUSES ===============
+
+% Clauses before input processing:
+
+formulas(usable).
+end_of_list.
+
+formulas(sos).
+-American(x) | -Weapon(y) | -Sells(x,y,z) | -Hostile(z) | Criminal(x).  [clausify(1)].
+Owns(Nono,M1).  [assumption].
+Missile(M1).  [assumption].
+Enemy(Nono,America).  [assumption].
+-Missile(x) | -Owns(Nono,x) | Sells(West,x,Nono).  [clausify(2)].
+American(West).  [assumption].
+-Missile(x) | Weapon(x).  [clausify(3)].
+-Enemy(x,America) | Hostile(x).  [clausify(4)].
+-Criminal(West).  [deny(5)].
+end_of_list.
+
+formulas(demodulators).
+end_of_list.
+
+============================== PREDICATE ELIMINATION =================
+
+Eliminating American/1
+6 American(West).  [assumption].
+7 -American(x) | -Weapon(y) | -Sells(x,y,z) | -Hostile(z) | Criminal(x).  [clausify(1)].
+Derived: -Weapon(x) | -Sells(West,x,y) | -Hostile(y) | Criminal(West).  [resolve(6,a,7,a)].
+
+Eliminating Owns/2
+8 -Missile(x) | -Owns(Nono,x) | Sells(West,x,Nono).  [clausify(2)].
+9 Owns(Nono,M1).  [assumption].
+Derived: -Missile(M1) | Sells(West,M1,Nono).  [resolve(8,b,9,a)].
+
+Eliminating Missile/1
+10 -Missile(x) | Weapon(x).  [clausify(3)].
+11 Missile(M1).  [assumption].
+Derived: Weapon(M1).  [resolve(10,a,11,a)].
+12 -Missile(M1) | Sells(West,M1,Nono).  [resolve(8,b,9,a)].
+Derived: Sells(West,M1,Nono).  [resolve(12,a,11,a)].
+
+Eliminating Enemy/2
+13 -Enemy(x,America) | Hostile(x).  [clausify(4)].
+14 Enemy(Nono,America).  [assumption].
+Derived: Hostile(Nono).  [resolve(13,a,14,a)].
+
+Eliminating Criminal/1
+15 -Weapon(x) | -Sells(West,x,y) | -Hostile(y) | Criminal(West).  [resolve(6,a,7,a)].
+16 -Criminal(West).  [deny(5)].
+Derived: -Weapon(x) | -Sells(West,x,y) | -Hostile(y).  [resolve(15,d,16,a)].
+
+Eliminating Weapon/1
+17 -Weapon(x) | -Sells(West,x,y) | -Hostile(y).  [resolve(15,d,16,a)].
+18 Weapon(M1).  [resolve(10,a,11,a)].
+Derived: -Sells(West,M1,x) | -Hostile(x).  [resolve(17,a,18,a)].
+
+Eliminating Sells/3
+19 -Sells(West,M1,x) | -Hostile(x).  [resolve(17,a,18,a)].
+20 Sells(West,M1,Nono).  [resolve(12,a,11,a)].
+Derived: -Hostile(Nono).  [resolve(19,a,20,a)].
+
+Eliminating Hostile/1
+21 -Hostile(Nono).  [resolve(19,a,20,a)].
+22 Hostile(Nono).  [resolve(13,a,14,a)].
+Derived: $F.  [resolve(21,a,22,a)].
+
+============================== end predicate elimination =============
+
+Auto_denials:  (no changes).
+
+Term ordering decisions:
+Predicate symbol precedence:  predicate_order([ ]).
+Function symbol precedence:  function_order([ ]).
+After inverse_order:  (no changes).
+Unfolding symbols: (none).
+
+Auto_inference settings:
+  % set(neg_binary_resolution).  % (HNE depth_diff=0)
+  % clear(ordered_res).  % (HNE depth_diff=0)
+  % set(ur_resolution).  % (HNE depth_diff=0)
+    % set(ur_resolution) -> set(pos_ur_resolution).
+    % set(ur_resolution) -> set(neg_ur_resolution).
+
+Auto_process settings:  (no changes).
+
+
+generated: $F.  [resolve(21,a,22,a)].
+
+============================== PROOF =================================
+
+% Proof 1 at 0.01 (+ 0.01) seconds.
+% Length of proof is 23.
+% Level of proof is 6.
+% Maximum clause weight is 0.000.
+% Given clauses 0.
+
+1 American(x) & Weapon(y) & Sells(x,y,z) & Hostile(z) -> Criminal(x) # label(non_clause).  [assumption].
+2 Missile(x) & Owns(Nono,x) -> Sells(West,x,Nono) # label(non_clause).  [assumption].
+3 Missile(x) -> Weapon(x) # label(non_clause).  [assumption].
+4 Enemy(x,America) -> Hostile(x) # label(non_clause).  [assumption].
+5 Criminal(West) # label(non_clause) # label(goal).  [goal].
+6 American(West).  [assumption].
+7 -American(x) | -Weapon(y) | -Sells(x,y,z) | -Hostile(z) | Criminal(x).  [clausify(1)].
+8 -Missile(x) | -Owns(Nono,x) | Sells(West,x,Nono).  [clausify(2)].
+9 Owns(Nono,M1).  [assumption].
+10 -Missile(x) | Weapon(x).  [clausify(3)].
+11 Missile(M1).  [assumption].
+12 -Missile(M1) | Sells(West,M1,Nono).  [resolve(8,b,9,a)].
+13 -Enemy(x,America) | Hostile(x).  [clausify(4)].
+14 Enemy(Nono,America).  [assumption].
+15 -Weapon(x) | -Sells(West,x,y) | -Hostile(y) | Criminal(West).  [resolve(6,a,7,a)].
+16 -Criminal(West).  [deny(5)].
+17 -Weapon(x) | -Sells(West,x,y) | -Hostile(y).  [resolve(15,d,16,a)].
+18 Weapon(M1).  [resolve(10,a,11,a)].
+19 -Sells(West,M1,x) | -Hostile(x).  [resolve(17,a,18,a)].
+20 Sells(West,M1,Nono).  [resolve(12,a,11,a)].
+21 -Hostile(Nono).  [resolve(19,a,20,a)].
+22 Hostile(Nono).  [resolve(13,a,14,a)].
+23 $F.  [resolve(21,a,22,a)].
+
+============================== end of proof ==========================
+
+============================== STATISTICS ============================
+
+Given=0. Generated=1. Kept=0. proofs=1.
+Usable=0. Sos=0. Demods=0. Limbo=0, Disabled=18. Hints=0.
+Kept_by_rule=0, Deleted_by_rule=0.
+Forward_subsumed=0. Back_subsumed=0.
+Sos_limit_deleted=0. Sos_displaced=0. Sos_removed=0.
+New_demodulators=0 (0 lex), Back_demodulated=0. Back_unit_deleted=0.
+Demod_attempts=0. Demod_rewrites=0.
+Res_instance_prunes=0. Para_instance_prunes=0. Basic_paramod_prunes=0.
+Nonunit_fsub_feature_tests=0. Nonunit_bsub_feature_tests=0.
+Megabytes=0.04.
+User_CPU=0.01, System_CPU=0.01, Wall_clock=0.
+
+============================== end of statistics =====================
+
+============================== end of search =========================
+
+THEOREM PROVED
+
+Exiting with 1 proof.
+
+Process 3411 exit (max_proofs) Mon Nov 20 06:16:30 2017

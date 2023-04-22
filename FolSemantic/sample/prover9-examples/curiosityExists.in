@@ -1,0 +1,31 @@
+% Russell, R. and Norvig, P. (2010). Artificial intelligence: A modern
+% approach, 3rd Edition. pp. 354. Prentice Hall: Upper Saddle River, NJ.
+%
+% 1. Everyone who loves all animals is loved by someone.
+% 2. Anyone who kills an animal is loved by no one.
+% 3. Jack loves all animals.
+% 4. Either Jack or Curiosity killed the cat, who is named Tuna.
+% 5. Cats are animals. (background knowledge)
+% Did Curiosity kill the cat?
+%
+% constants: Jack, Curiosity, Tuna
+% predicate Animal(x): x is an animal
+% predicate Loves(x,y): x loves y
+% predicate Kills(x,y): x kills y
+% predicate Cat(x): x is a cat
+
+set(binary_resolution).
+
+formulas(assumptions).
+ all x (all y (Animal(y) -> Loves(x,y)) -> exists y (Loves(y,x))). %1
+ all x (exists z (Animal(z) & Kills(x,z)) -> all y (-Loves(y,x))). %2
+ all x (Animal(x) -> Loves(Jack,x)). %3
+ Kills(Jack,Tuna) | Kills(Curiosity,Tuna). %4
+ Cat(Tuna). %4
+ all x (Cat(x) -> Animal(x)). %5
+% Answer(Jack) | Answer(Curiosity). 
+end_of_list.
+
+formulas(goals).
+ exists x (Kills(x,Tuna)) | $answer.
+end_of_list.

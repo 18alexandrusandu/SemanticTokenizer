@@ -1,0 +1,17 @@
+1 Father(x,y) | Mother(x,y) -> Parent(x,y) # label(non_clause).  [assumption].
+2 Parent(x,y) & Parent(y,z) -> Grandparent(x,z) # label(non_clause).  [assumption].
+3 Grandparent(Queen,DukeOfCambridge) # label(non_clause) # label(goal).  [goal].
+4 -Mother(x,y) | Parent(x,y).  [clausify(1)].
+5 Mother(ElizabethII,Charles).  [assumption].
+7 -Father(x,y) | Parent(x,y).  [clausify(1)].
+8 Father(Charles,William).  [assumption].
+10 -Parent(x,y) | -Parent(y,z) | Grandparent(x,z).  [clausify(2)].
+11 William = DukeOfCambridge.  [assumption].
+12 DukeOfCambridge = William.  [copy(11),flip(a)].
+13 Queen = ElizabethII.  [assumption].
+14 -Grandparent(Queen,DukeOfCambridge).  [deny(3)].
+15 -Grandparent(ElizabethII,William).  [copy(14),rewrite([13(1),12(2)])].
+16 Parent(ElizabethII,Charles).  [resolve(4,a,5,a)].
+18 Parent(Charles,William).  [resolve(7,a,8,a)].
+20 -Parent(Charles,William).  [ur(10,a,16,a,c,15,a)].
+21 $F.  [resolve(20,a,18,a)].
